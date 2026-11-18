@@ -1,0 +1,5 @@
+# Always use LF in the repository and in working trees (Prettier, shell scripts and Docker rely on it)
+* text=auto eol=lf
+*.png binary
+*.gif binary
+*.svg text

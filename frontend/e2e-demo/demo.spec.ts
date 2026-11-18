@@ -49,6 +49,20 @@ test('shows the demo banner and seeded board without calling any API', async ({ 
   expect(apiCalls).toEqual([])
 })
 
+test('the demo banner stays compact on a phone-sized screen', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+  const banner = page.getByLabel('Aviso de modo demo')
+  await expect(banner).toBeVisible()
+  // text and buttons must wrap onto rows instead of squeezing the text into a narrow column
+  const box = (await banner.boundingBox())!
+  expect(box.height).toBeLessThan(130)
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - window.innerWidth,
+  )
+  expect(overflow).toBeLessThanOrEqual(0)
+})
+
 test('create, edit and delete work and persist after reload', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('button', { name: 'Nueva tarea' }).click()

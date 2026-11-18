@@ -23,7 +23,7 @@ export function DemoBanner() {
       className="border-b border-border bg-card-lemon text-card-foreground"
     >
       <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2 text-sm sm:px-6">
-        <p className="flex min-w-0 flex-1 items-center gap-2 font-medium">
+        <p className="flex basis-full items-center gap-2 font-medium sm:min-w-0 sm:flex-1 sm:basis-0">
           <FlaskConical aria-hidden className="size-4 shrink-0" />
           <span>
             Modo demo: tus cambios se guardan solo en este navegador y no se envían a ningún
