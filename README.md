@@ -61,6 +61,10 @@ El MVP es **local-only**. La interfaz se publica únicamente en `127.0.0.1`; la 
 
 No se debe exponer a LAN, Internet, reverse proxy ni Cloudflare Tunnel hasta completar el trabajo de seguridad descrito en [docs/SECURITY.md](docs/SECURITY.md), incluyendo autenticación, autorización y controles de origen.
 
+## Demo en vivo
+
+**https://alejblasco.github.io/StickyBoard-Personal-Kanban-Workspace/**: la misma interfaz, sin servidor. Tus cambios se guardan solo en tu navegador (`localStorage`) y hay un botón para restablecer los datos de ejemplo. Cómo y por qué: [ADR 0003](docs/adr/0003-demo-mode.md).
+
 ## Ejecución con Docker
 
 ```bash
@@ -81,7 +85,9 @@ dotnet run --project src/StickyBoard.Api --urls http://127.0.0.1:5000
 cd frontend && npm install && npm run dev
 ```
 
-Pruebas: `dotnet test` (backend), `npm test` (componentes) y `npm run e2e` (Playwright; arranca su propia API con una base temporal).
+Pruebas: `dotnet test` (backend), `npm test` (componentes), `npm run e2e` (Playwright; arranca su propia API con una base temporal) y `npm run e2e:demo` (la build de la demo, sin API).
+
+Demo en local: `npm run dev:demo` (desarrollo) o `npm run build:demo && npm run preview:demo`.
 
 ## Documentación
 

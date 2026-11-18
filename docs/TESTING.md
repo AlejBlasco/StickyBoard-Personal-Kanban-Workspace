@@ -76,10 +76,11 @@ No marcar una prueba como superada sin ejecutarla y registrar el resultado. Los 
 |---|---|---|---|
 | Backend unitarias | xUnit | 52 tests de `TaskItem` y `TaskService` (repositorio y reloj falsos) | `dotnet test` |
 | Backend integración | xUnit + `WebApplicationFactory` + SQLite temporal | 21 tests: CRUD, movimiento, filtros, Problem Details, `Host` y `Origin` | `dotnet test` |
-| Frontend | Vitest + React Testing Library | 27 tests: modelo, filtros, validación y flujos de la aplicación con una API simulada | `npm test` (en `frontend/`) |
+| Frontend | Vitest + React Testing Library | 47 tests: modelo, filtros, validación, adaptador de la demo y flujos de la aplicación (API simulada y modo demo) | `npm test` (en `frontend/`) |
 | E2E | Playwright contra la API real | 8 tests: CRUD, drag & drop con ratón y teclado, filtros, ambos temas con axe (WCAG 2.2 AA) y móvil | `npm run e2e` |
+| E2E demo | Playwright contra la build estática de la demo | 7 tests: sin llamadas a `/api`, CRUD y persistencia en `localStorage`, arrastre, filtros, restablecer y axe en ambos temas | `npm run e2e:demo` |
 | Despliegue | CI (job `docker`) y `docs/DEPLOYMENT.md` | Puertos, usuario no root, `Host`/`Origin`, persistencia, CSP y Trivy | `.github/workflows/ci.yml` |
 
 El E2E también puede ejecutarse contra el stack de Docker con `E2E_BASE_URL=http://127.0.0.1:8080 npm run e2e`. **Borra las tareas existentes**: usa un proyecto Compose aparte (por ejemplo `docker compose -p sbverify`).
 
-Pendiente: revisión manual con lector de pantalla, zoom y reflow, y la primera ejecución de la CI en GitHub (ver `ROADMAP.md`).
+La CI se ha ejecutado en GitHub con los 5 jobs en verde. Pendiente: revisión manual con lector de pantalla (ver `ROADMAP.md`).

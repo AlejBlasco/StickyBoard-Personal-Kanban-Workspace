@@ -13,7 +13,11 @@
     "typecheck": "tsc -b --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "build:demo": "tsc -b && vite build --mode demo",
+    "preview:demo": "vite preview --mode demo --port 5175 --strictPort",
+    "e2e:demo": "playwright test -c playwright.demo.config.ts",
+    "dev:demo": "vite --mode demo"
   },
   "dependencies": {
     "@dnd-kit/core": "6.3.1",

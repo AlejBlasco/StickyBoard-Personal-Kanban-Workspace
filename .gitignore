@@ -107,6 +107,7 @@ backups/
 .env
 .env.*
 !.env.example
+!.env.demo
 appsettings.*.local.json
 secrets.json
 *.pfx
