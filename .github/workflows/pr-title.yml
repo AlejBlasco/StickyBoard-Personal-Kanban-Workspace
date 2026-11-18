@@ -1,0 +1,32 @@
+name: PR title
+
+# With "Squash and merge" the PR title becomes the commit message on master,
+# so it must follow Conventional Commits (see CONTRIBUTING.md).
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  conventional-title:
+    name: Conventional Commit title
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Validate the pull request title
+        env:
+          # Passed through the environment (never interpolated into the script) to avoid injection
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          pattern='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?!?: [^[:space:]].{0,70}$'
+          if [[ "$TITLE" =~ $pattern ]]; then
+            echo "OK: $TITLE"
+          else
+            echo "::error title=Invalid PR title::'$TITLE' does not follow Conventional Commits."
+            echo "Expected: <type>(<optional-scope>): <description, max 72 chars after the colon>"
+            echo "Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+            echo "Example: feat(web): add keyboard column navigation"
+            exit 1
+          fi
