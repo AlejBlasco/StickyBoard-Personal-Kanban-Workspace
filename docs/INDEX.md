@@ -18,7 +18,7 @@
 | [API.md](API.md) | Contrato REST implementado |
 | [DATA_MODEL.md](DATA_MODEL.md) | Modelo Task y reglas de persistencia |
 | [DEPLOYMENT.md](DEPLOYMENT.md) | Docker Compose, endurecimiento, backup y restauración |
-| [CONTRIBUTING.md](../CONTRIBUTING.md) | Flujo de contribución y checklist |
+| [CONTRIBUTING.md](../CONTRIBUTING.md) | Flujo de contribución, reglas y checks de PR, commits y protección de `master` |
 
 ## Decisiones consolidadas
 
