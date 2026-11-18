@@ -47,6 +47,7 @@ Estado: MVP funcional completo (backend, frontend, Docker y seguridad) y verific
 ## Próximo trabajo
 
 - [x] Demo pública sin backend (modo demo con datos en el navegador, workflow de GitHub Pages y E2E propio; [ADR 0003](adr/0003-demo-mode.md)). Desplegada y verificada en https://alejblasco.github.io/StickyBoard-Personal-Kanban-Workspace/ (carga, CRUD y persistencia tras recargar, sin llamadas a `/api` ni errores de consola).
+- [x] README de portfolio: capturas en ambos temas y móvil, GIF de drag & drop, insignias, arquitectura y destacados técnicos (`docs/images/`).
 - [ ] Hacer multi idioma (hoy la interfaz está solo en español).
 
 ## Después del MVP (no comprometido)
