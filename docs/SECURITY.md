@@ -72,6 +72,16 @@ Ante indicios de exposición accidental:
 
 ## Estado de implementación de los controles del MVP
 
+Controles en el camino de una petición:
+
+```mermaid
+flowchart LR
+    B["Navegador"] -->|"solo 127.0.0.1"| N["Nginx<br/>Host permitido · CSP y cabeceras · límite 16 KB"]
+    N -->|"red interna sin salida"| A["API<br/>AllowedHosts · OriginGuard · validación · Problem Details"]
+    A --> D[("SQLite<br/>/data 700 · ficheros 600")]
+```
+
+
 Implementados y verificados (ver `DEPLOYMENT.md` y el job `docker` de la CI):
 - Validación server-side, EF Core parametrizado, DTOs y Problem Details sin detalles internos.
 - CSP restrictiva, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, COOP/CORP y `Permissions-Policy` en Nginx; el script del tema es un fichero externo.

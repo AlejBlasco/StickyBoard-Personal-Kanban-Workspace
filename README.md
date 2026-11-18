@@ -45,17 +45,14 @@ La demo no tiene servidor: tus cambios se guardan solo en tu navegador y hay un 
 
 ## Arquitectura
 
-```text
-Navegador (127.0.0.1)
-        |
-        v
-Nginx  ── sirve la SPA React ── proxy de /api (red interna de Docker)
-        |
-        v
-ASP.NET Core .NET 10 (Api) ─> Application ─> Domain
-                                   |
-                                   v
-                       Infrastructure: EF Core ─> SQLite (volumen persistente)
+```mermaid
+flowchart TD
+    B["Navegador<br/>127.0.0.1"] --> N["Nginx<br/>sirve la SPA React y hace proxy de /api"]
+    N -->|"red interna de Docker"| A["Api<br/>ASP.NET Core .NET 10"]
+    A --> AP["Application<br/>casos de uso y validación"]
+    AP -.->|"usa"| D["Domain<br/>entidades y reglas"]
+    AP --> I["Infrastructure<br/>EF Core"]
+    I --> S[("SQLite<br/>volumen persistente")]
 ```
 
 Más detalle en [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
