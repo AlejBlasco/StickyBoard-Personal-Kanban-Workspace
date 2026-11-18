@@ -1,0 +1,141 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/plus-jakarta-sans';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Semantic tokens — light (warm ivory) */
+:root {
+  --background: #f6f1e7;
+  --surface: #fffdf8;
+  --surface-2: #efe8d9;
+  --foreground: #2a2723;
+  --muted: #655e53;
+  --border: #ddd3bf;
+  --primary: #a8401f;
+  --primary-foreground: #ffffff;
+  --danger: #b42318;
+  --warning: #8a5a00;
+  --success: #1f6f43;
+  --ring: #a8401f;
+
+  --card-lavender: #e6e0f7;
+  --card-mint: #d9efe2;
+  --card-peach: #fbe0cf;
+  --card-sky: #d8eaf8;
+  --card-lemon: #f7efc2;
+  --card-rose: #f9dce3;
+  --card-foreground: #2a2723;
+  --card-muted: #55504a;
+  --shadow-card: 0 1px 0 rgb(42 39 35 / 0.06), 0 2px 6px -2px rgb(42 39 35 / 0.12);
+  --shadow-lift: 0 12px 28px -8px rgb(42 39 35 / 0.35);
+  color-scheme: light;
+}
+
+/* Dark is designed, not inverted: deep charcoal, graphite surfaces */
+.dark {
+  --background: #161513;
+  --surface: #211f1c;
+  --surface-2: #2a2723;
+  --foreground: #f2eee6;
+  --muted: #b3ab9d;
+  --border: #3a362f;
+  --primary: #f0916f;
+  --primary-foreground: #2a1308;
+  --danger: #ff8f80;
+  --warning: #f2c25b;
+  --success: #7fd6a3;
+  --ring: #f0916f;
+
+  --card-lavender: #3b3655;
+  --card-mint: #2b4539;
+  --card-peach: #4f382c;
+  --card-sky: #2b4054;
+  --card-lemon: #48431f;
+  --card-rose: #50303a;
+  --card-foreground: #f2eee6;
+  --card-muted: #cbc4b7;
+  --shadow-card: 0 1px 0 rgb(0 0 0 / 0.3), 0 2px 8px -2px rgb(0 0 0 / 0.5);
+  --shadow-lift: 0 14px 30px -8px rgb(0 0 0 / 0.7);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+  --color-ring: var(--ring);
+  --color-card-lavender: var(--card-lavender);
+  --color-card-mint: var(--card-mint);
+  --color-card-peach: var(--card-peach);
+  --color-card-sky: var(--card-sky);
+  --color-card-lemon: var(--card-lemon);
+  --color-card-rose: var(--card-rose);
+  --color-card-foreground: var(--card-foreground);
+  --color-card-muted: var(--card-muted);
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@keyframes sb-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sb-dialog-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.sb-overlay[data-state='open'] {
+  animation: sb-overlay-in 140ms ease-out;
+}
+.sb-dialog[data-state='open'] {
+  animation: sb-dialog-in 160ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

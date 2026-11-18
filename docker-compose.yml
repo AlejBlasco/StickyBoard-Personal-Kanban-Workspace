@@ -1,0 +1,68 @@
+# StickyBoard — local-only deployment.
+# Only the web container is published, and only on loopback. The API has no published ports.
+name: stickyboard
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+    image: stickyboard-api:local
+    restart: unless-stopped
+    expose:
+      - "8080"            # internal network only; never add `ports:` here
+    environment:
+      # Browsers may only call state-changing endpoints from the published web origin
+      Security__AllowedOrigins__0: http://127.0.0.1:${STICKYBOARD_PORT:-8080}
+      Security__AllowedOrigins__1: http://localhost:${STICKYBOARD_PORT:-8080}
+    volumes:
+      - stickyboard-data:/data
+    networks:
+      - internal          # internal network: no route to the outside world
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/api/v1/health"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+      start_period: 15s
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/web.Dockerfile
+    image: stickyboard-web:local
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${STICKYBOARD_PORT:-8080}:8080"
+    networks:
+      - internal
+      - edge
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/healthz"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+networks:
+  internal:
+    internal: true
+  edge: {}
+
+volumes:
+  stickyboard-data:
