@@ -11,7 +11,7 @@
 | [CLAUDE.md](../CLAUDE.md) | Flujo de trabajo para Claude Code |
 | [SECURITY.md](SECURITY.md) | Modelo de amenazas, controles y gate de exposición |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Arquitectura de frontend, API y persistencia |
-| [ROADMAP.md](ROADMAP.md) | Backlog MVP y posibles evoluciones |
+| [ROADMAP.md](ROADMAP.md) | Dirección, lo entregado en el MVP y enlace al backlog (issues y milestones) |
 | [TESTING.md](TESTING.md) | Estrategia y criterios de pruebas |
 | [CODING_STANDARDS.md](CODING_STANDARDS.md) | Estándares React, TypeScript, C# y datos |
 | [DESIGN.md](DESIGN.md) | Dirección visual Creative Workspace |

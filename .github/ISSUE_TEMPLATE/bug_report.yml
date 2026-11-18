@@ -1,0 +1,62 @@
+name: Error
+description: Algo no funciona como se espera
+title: "[Error] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por avisar. **No pegues secretos, datos personales ni el contenido de tus tareas** (ni en capturas ni en logs).
+  - type: textarea
+    id: summary
+    attributes:
+      label: Qué ocurre
+      description: Describe el problema en pocas líneas.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Pasos para reproducirlo
+      placeholder: |
+        1. Ir a ...
+        2. Pulsar ...
+        3. Ver ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportamiento esperado
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Dónde ocurre
+      options:
+        - Demo pública (GitHub Pages)
+        - Docker Compose
+        - Desarrollo local
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Navegador y sistema operativo
+      placeholder: Chrome 140 en Windows 11
+  - type: textarea
+    id: logs
+    attributes:
+      label: Capturas o logs técnicos
+      description: Errores de la consola del navegador o de `docker compose logs`, depurados.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Antes de enviar
+      options:
+        - label: He buscado si ya existe una issue igual.
+          required: true
+        - label: He comprobado que no incluyo datos personales ni secretos.
+          required: true

@@ -96,9 +96,15 @@ Seguimos [Conventional Commits](https://www.conventionalcommits.org/): `tipo(ám
 - Bloquear los force-push y el borrado de la rama.
 - *Settings → General → Automatically delete head branches*.
 
+## Issues, milestones y roadmap
+
+- **El trabajo pendiente vive en las [issues](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues)**, agrupado en milestones (el actual es la v1.1). `docs/ROADMAP.md` solo recoge la dirección y lo ya entregado: no dupliques tareas allí.
+- Abre una issue antes de empezar un cambio grande o que toque decisiones de producto o arquitectura, y enlázala desde el PR con `Closes #n`.
+- Usa las plantillas (*Error* y *Mejora o idea*). Etiquetas: `bug`, `enhancement`, `accessibility`, `i18n`, `performance`, `design`, `security`, `chore` e `idea` (sin comprometer, sin milestone).
+
 ## Reporte de incidencias
 
-Incluir pasos reproducibles, comportamiento esperado/observado, entorno y logs técnicos depurados. No adjuntar secretos ni datos personales de tareas.
+Incluir pasos reproducibles, comportamiento esperado/observado, entorno y logs técnicos depurados (la plantilla *Error* los pide). No adjuntar secretos ni datos personales de tareas.
 
 ## Comprobaciones locales antes de abrir un PR
 

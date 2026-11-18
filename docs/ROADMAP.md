@@ -1,65 +1,57 @@
 # Roadmap
 
-Leyenda: `[x]` hecho y verificado con tests; `[ ]` pendiente (los paréntesis indican lo que ya está hecho y lo que falta).
+Este documento recoge la **dirección** del producto y lo que ya se ha entregado. El trabajo pendiente vive en GitHub y es la única fuente de verdad:
 
-Estado: MVP funcional completo (backend, frontend, Docker y seguridad) y verificado. Queda una tarea: la revisión manual de accesibilidad con lector de pantalla.
+- [Issues abiertas](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues) · [Milestone v1.1](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/milestone/1) · etiquetas `bug`, `enhancement`, `accessibility`, `i18n`, `performance`, `design`, `security`, `chore` e `idea`.
+- Cómo proponer o reportar algo: [CONTRIBUTING.md](../CONTRIBUTING.md) (hay plantillas de issue y de pull request).
 
-## MVP — alcance comprometido
+## Estado
 
-### Fundación
-- [x] Solución .NET 10 (Clean Architecture: Domain, Application, Infrastructure, Api, Tests).
-- [x] Frontend React/TypeScript (strict)/Vite en `frontend/`.
-- [x] Docker Compose con Nginx, API y volumen SQLite (web solo en `127.0.0.1`, API sin puertos, health checks, contenedores sin root y de solo lectura; verificado en ejecución).
-- [x] Configuración de desarrollo, lint y formato (ESLint, Prettier, TypeScript strict, `.gitignore`, `.env.example`).
-- [x] CI con GitHub Actions (`.github/workflows/ci.yml`): backend (format, build con `-warnaserror`, 73 tests), frontend (lint, formato, tipos, tests, build), E2E con Playwright, build y humo de Docker con comprobaciones de seguridad, y auditoría de dependencias e imágenes. Verificada en GitHub: los 5 jobs en verde (actions fijadas por SHA y Trivy desde una imagen fijada por digest).
+**v1.0 (MVP) completo y verificado:** backend, frontend, empaquetado Docker, seguridad, CI y demo pública. El siguiente hito es la **v1.1**, centrada en multi idioma y pulido.
 
-### Tablero
-- [x] Columnas Pendiente, En progreso y Completado.
-- [x] Crear, editar y eliminar tareas.
-- [x] Confirmación antes del borrado permanente.
-- [x] Drag & drop entre columnas y reordenación (dnd-kit, con alternativa por teclado y menú «Mover a»).
-- [x] Persistencia del orden.
+## Entregado en el MVP (v1.0)
 
-### Tareas
-- [x] Título obligatorio y descripción opcional.
-- [x] Prioridad baja, media y alta.
-- [x] Color de tarjeta.
-- [x] Fecha límite opcional.
-- [x] Fechas de creación y actualización.
-- [x] Tareas completadas visibles y recuperables.
+**Fundación**
+- Solución .NET 10 con Clean Architecture (Domain, Application, Infrastructure, Api) y frontend React + TypeScript (strict) + Vite.
+- Docker Compose con Nginx, API y volumen SQLite: web solo en `127.0.0.1`, API sin puertos publicados, contenedores sin root y de solo lectura, health checks. Ver [DEPLOYMENT.md](DEPLOYMENT.md).
+- Lint, formato y CI con GitHub Actions (backend, frontend, E2E, demo, Docker con comprobaciones de endurecimiento, auditoría de dependencias y título del PR).
 
-### Productividad
-- [x] Búsqueda por título y descripción.
-- [x] Filtros por estado, prioridad y fecha límite.
-- [x] Temas claro y oscuro.
-- [x] Estados vacíos, loading, error y vencimiento.
+**Tablero y tareas**
+- Tres columnas (Pendiente, En progreso y Completado), CRUD con confirmación de borrado y persistencia del orden.
+- Drag & drop con dnd-kit, con alternativa por teclado y menú «Mover a»; las tareas completadas siguen visibles y recuperables.
+- Título, descripción, prioridad, color, fecha límite y timestamps.
 
-### Calidad
-- [x] Pruebas de integración backend (21 tests: CRUD, movimiento, filtros, Problem Details, `Host` y `Origin`).
-- [x] Pruebas unitarias backend (52 tests de `TaskItem` y `TaskService` con repositorio y reloj falsos: validación, límites, movimiento y posiciones, filtros y `today` local).
-- [x] Pruebas de componentes frontend (Vitest + RTL, 27 tests).
-- [x] Flujos E2E principales (Playwright contra la API real, 8 tests).
-- [x] Accesibilidad automatizada WCAG 2.2 AA (axe sin violaciones serias en ambos temas, teclado y anuncios de arrastre verificados, objetivos táctiles y reflow móvil).
-- [ ] Revisión manual de accesibilidad con lector de pantalla, zoom y reflow.
-- [x] Revisión de seguridad y dependencias (`npm audit` y NuGet sin vulnerabilidades, Trivy sin HIGH/CRITICAL corregibles en ambas imágenes, versiones fijadas, CSP y cabeceras en Nginx, validación de `Host` y `Origin`, permisos `700`/`600`; la revisión OWASP ASVS completa queda para el gate de exposición remota).
-- [x] Documentación de ejecución y backup (README y `docs/DEPLOYMENT.md`; backup y restauración probados).
+**Productividad y diseño**
+- Búsqueda por título y descripción y filtros combinables por estado, prioridad y fecha.
+- Temas claro y oscuro, responsive, y estados de carga, vacío, error y vencimiento.
 
-## Próximo trabajo
+**Calidad y seguridad**
+- Pruebas unitarias y de integración (backend), de componentes (frontend) y E2E con Playwright, con axe (WCAG 2.2 AA) en ambos temas. Ver [TESTING.md](TESTING.md).
+- Revisión de seguridad y dependencias: CSP y cabeceras en Nginx, validación de `Host` y `Origin`, versiones fijadas y Trivy. Ver [SECURITY.md](SECURITY.md).
 
-- [x] Demo pública sin backend (modo demo con datos en el navegador, workflow de GitHub Pages y E2E propio; [ADR 0003](adr/0003-demo-mode.md)). Desplegada y verificada en https://alejblasco.github.io/StickyBoard-Personal-Kanban-Workspace/ (carga, CRUD y persistencia tras recargar, sin llamadas a `/api` ni errores de consola).
-- [x] README de portfolio: capturas en ambos temas y móvil, GIF de drag & drop, insignias, arquitectura y destacados técnicos (`docs/images/`).
-- [ ] Hacer multi idioma (hoy la interfaz está solo en español).
+**Portfolio**
+- Demo pública sin backend en GitHub Pages ([ADR 0003](adr/0003-demo-mode.md)), README con capturas y GIF, diagramas Mermaid y reglas de contribución con protección de `master`.
 
-## Después del MVP (no comprometido)
+## Siguiente: v1.1 (multi idioma y pulido)
 
-Posibles mejoras sujetas a priorización:
-- Etiquetas y categorías.
-- Varias vistas y calendarios.
-- Tareas recurrentes.
-- Adjuntos.
-- Múltiples tableros.
-- Importación/exportación.
-- Atajos de teclado avanzados.
+| Issue | Tema |
+|---|---|
+| [#5](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues/5) | Multi idioma (español e inglés) |
+| [#6](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues/6) | Revisión manual de accesibilidad con lector de pantalla |
+| [#7](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues/7) | Teclado: pasar de columna con una sola flecha |
+| [#8](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues/8) | Soltar bajo la última tarjeta de otra columna |
+| [#9](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues/9) | Reducir el tamaño del bundle |
+| [#10](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues/10) | Identidad visual: favicon, logotipo y social preview |
+| [#11](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues/11) | Permisos de la base de datos en volúmenes existentes |
+
+## Ideas (no comprometidas)
+
+Se priorizan según el uso real y no tienen milestone. Las que ya tienen discusión abierta:
+
+- [#12](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues/12) Paleta de comandos (Ctrl+K) y atajos de teclado.
+- [#13](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues/13) Exportar e importar tareas en JSON.
+
+Sin issue todavía: etiquetas y categorías, varias vistas y calendarios, tareas recurrentes, adjuntos y múltiples tableros. Si te interesa alguna, abre una issue con la plantilla de mejora.
 
 ## Futuro remoto
 
