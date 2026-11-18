@@ -1,0 +1,8 @@
+# ADR 0003 — Demo pública sin backend (GitHub Pages)
+
+- **Estado:** aceptada.
+- **Contexto:** StickyBoard es una aplicación local-only. `SECURITY.md` prohíbe exponer la API sin autenticación, así que no se puede enseñar publicando el stack real. Para el portfolio hace falta algo que cualquiera pueda abrir sin instalar nada.
+- **Decisión:** una build estática del mismo frontend (`vite build --mode demo`, con `VITE_DEMO=true`) que sustituye el cliente HTTP por un adaptador de navegador (`features/tasks/demo/localApi.ts`). Los datos viven en `localStorage` de cada visitante, con una semilla relativa a la fecha actual y un botón para restablecerla. Se despliega en GitHub Pages con `.github/workflows/pages.yml`. Un banner indica que es una demo.
+- **Cómo se mantiene la fidelidad:** el adaptador replica las reglas del servidor (validación, normalización, límites, paleta de colores, posiciones en saltos de 1024 y semántica de filtros) y se prueba con tests unitarios; la UI es exactamente la misma. El E2E del demo (`npm run e2e:demo`) comprueba el flujo completo sin ninguna llamada a `/api`.
+- **Alternativas:** desplegar la API real con autenticación (viola el gate de `SECURITY.md` y exige operar un servidor); capturas o vídeo (no interactivo); MSW en el navegador (una dependencia más y la misma lógica duplicada).
+- **Consecuencias:** la lógica de filtros y movimiento existe en dos sitios (servidor y adaptador); el riesgo de divergencia se acota con tests y con que ambos documentan la misma especificación (`API.md`). La build normal no incluye el adaptador: la comprobación `import.meta.env.VITE_DEMO` se pliega en tiempo de compilación y el código se elimina del bundle.

@@ -2,7 +2,7 @@
 
 Leyenda: `[x]` hecho y verificado con tests; `[ ]` pendiente (los paréntesis indican lo que ya está hecho y lo que falta).
 
-Estado: MVP funcional completo (backend, frontend, Docker y seguridad) y verificado. Queda una tarea: la revisión manual de accesibilidad (y confirmar la primera ejecución de la CI en GitHub).
+Estado: MVP funcional completo (backend, frontend, Docker y seguridad) y verificado. Queda una tarea: la revisión manual de accesibilidad con lector de pantalla.
 
 ## MVP — alcance comprometido
 
@@ -11,7 +11,7 @@ Estado: MVP funcional completo (backend, frontend, Docker y seguridad) y verific
 - [x] Frontend React/TypeScript (strict)/Vite en `frontend/`.
 - [x] Docker Compose con Nginx, API y volumen SQLite (web solo en `127.0.0.1`, API sin puertos, health checks, contenedores sin root y de solo lectura; verificado en ejecución).
 - [x] Configuración de desarrollo, lint y formato (ESLint, Prettier, TypeScript strict, `.gitignore`, `.env.example`).
-- [x] CI con GitHub Actions (`.github/workflows/ci.yml`): backend (format, build con `-warnaserror`, 73 tests), frontend (lint, formato, tipos, tests, build), E2E con Playwright, build y humo de Docker con comprobaciones de seguridad, y auditoría de dependencias e imágenes. Validado con `actionlint`; falta su primera ejecución real en GitHub.
+- [x] CI con GitHub Actions (`.github/workflows/ci.yml`): backend (format, build con `-warnaserror`, 73 tests), frontend (lint, formato, tipos, tests, build), E2E con Playwright, build y humo de Docker con comprobaciones de seguridad, y auditoría de dependencias e imágenes. Verificada en GitHub: los 5 jobs en verde (actions fijadas por SHA y Trivy desde una imagen fijada por digest).
 
 ### Tablero
 - [x] Columnas Pendiente, En progreso y Completado.
@@ -46,6 +46,7 @@ Estado: MVP funcional completo (backend, frontend, Docker y seguridad) y verific
 
 ## Próximo trabajo
 
+- [x] Demo pública sin backend (modo demo con datos en el navegador, workflow de GitHub Pages y E2E propio; [ADR 0003](adr/0003-demo-mode.md)). Falta activar Pages en el repositorio y confirmar el primer despliegue.
 - [ ] Hacer multi idioma (hoy la interfaz está solo en español).
 
 ## Después del MVP (no comprometido)

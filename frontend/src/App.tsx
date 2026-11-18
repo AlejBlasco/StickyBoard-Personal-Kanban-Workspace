@@ -9,6 +9,7 @@ import {
   toQueryParams,
   type Filters,
 } from '@/features/filters/filters'
+import { DemoBanner } from '@/features/tasks/demo/DemoBanner'
 import { useDeleteTask, useMoveTask, useTasks } from '@/features/tasks/hooks'
 import { STATUS_LABEL, toIsoDate } from '@/features/tasks/model'
 import type { TaskCardActions } from '@/features/tasks/TaskCard'
@@ -88,6 +89,8 @@ export default function App() {
       >
         Saltar al tablero
       </a>
+
+      {import.meta.env.VITE_DEMO === 'true' && <DemoBanner />}
 
       <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">

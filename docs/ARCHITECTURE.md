@@ -79,4 +79,6 @@ docker/ + docker-compose.yml    imágenes de API y web, Nginx, volumen SQLite
 
 Frontend: `features/tasks` (API, hooks, modelo puro, tarjeta, formulario), `features/board` (columnas y dnd-kit), `features/filters` y `shared` (cliente API, UI base, hooks). La lógica de movimiento, fechas y filtros está en funciones puras (`model.ts`, `filters.ts`), probadas sin renderizar.
 
-Dependencias añadidas durante la implementación y su motivo: ver [adr/](adr/).
+Modo demo: `features/tasks/api.ts` elige entre el cliente HTTP y el adaptador de navegador (`features/tasks/demo/`) según `VITE_DEMO`, decidido en tiempo de compilación.
+
+Dependencias y decisiones añadidas durante la implementación y su motivo: ver [adr/](adr/).

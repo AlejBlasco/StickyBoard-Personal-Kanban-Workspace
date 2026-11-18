@@ -90,3 +90,20 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image
 ## Restricción de exposición
 
 No cambiar el binding a `0.0.0.0`, no publicar la API, no configurar reverse proxy externo y no usar Cloudflare Tunnel en el MVP. Cualquier exposición futura requiere completar el gate de `SECURITY.md` y una revisión explícita antes del cambio.
+
+## Demo pública (GitHub Pages)
+
+La demo es una build estática del frontend (`npm run build:demo`) con los datos en el navegador de cada visitante: **no despliega la API ni expone ningún servidor**. Detalles en [ADR 0003](adr/0003-demo-mode.md).
+
+Activación (una sola vez, en GitHub): *Settings → Pages → Build and deployment → Source: **GitHub Actions***. A partir de ahí, cada push a `master` que toque `frontend/` ejecuta `.github/workflows/pages.yml`, que construye con la ruta base del repositorio y publica en
+`https://<usuario>.github.io/<repositorio>/`. También puede lanzarse a mano desde la pestaña *Actions* (`workflow_dispatch`).
+
+Comprobación local de la build exacta que se publica:
+
+```bash
+cd frontend
+VITE_BASE=/StickyBoard-Personal-Kanban-Workspace/ npm run build:demo
+npm run preview:demo      # o: npm run e2e:demo
+```
+
+(En Git Bash para Windows, antepón `MSYS_NO_PATHCONV=1` para que la ruta base no se reescriba.)

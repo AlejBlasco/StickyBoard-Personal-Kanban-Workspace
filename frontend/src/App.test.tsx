@@ -1,8 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
+import { resetDemoData } from '@/features/tasks/demo/localApi'
 import { ToastProvider } from '@/shared/ui/toast'
 import { installFakeApi, makeTask } from '@/test/fakeApi'
 
@@ -132,5 +133,61 @@ describe('App', () => {
     expect(localStorage.getItem('stickyboard-theme')).toBe('dark')
     await userEvent.click(screen.getByRole('button', { name: 'Cambiar a tema claro' }))
     expect(document.documentElement).not.toHaveClass('dark')
+  })
+})
+
+describe('App in demo mode', () => {
+  beforeEach(() => {
+    vi.stubEnv('VITE_DEMO', 'true')
+    localStorage.clear()
+    resetDemoData()
+  })
+  afterEach(() => vi.unstubAllEnvs())
+
+  it('shows the demo banner and works without any network request', async () => {
+    const fetchMock = vi.fn()
+    vi.stubGlobal('fetch', fetchMock)
+    renderApp()
+
+    expect(await screen.findByLabelText('Aviso de modo demo')).toBeInTheDocument()
+    expect(await screen.findByText('Publicar la demo en GitHub Pages')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Ver código/ })).toHaveAttribute(
+      'href',
+      expect.stringContaining('github.com'),
+    )
+
+    await userEvent.click(screen.getByRole('button', { name: /Nueva tarea/ }))
+    await userEvent.type(screen.getByLabelText('Título'), 'Tarea de demo')
+    await userEvent.click(screen.getByRole('button', { name: 'Crear tarea' }))
+    expect(await screen.findByText('Tarea de demo')).toBeInTheDocument()
+
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+
+  it('restores the sample data with the reset button', async () => {
+    renderApp()
+    await screen.findByText('Publicar la demo en GitHub Pages')
+    await userEvent.click(
+      screen.getByRole('button', {
+        name: 'Acciones de la tarea: Publicar la demo en GitHub Pages',
+      }),
+    )
+    await userEvent.click(await screen.findByRole('menuitem', { name: /Eliminar/ }))
+    await userEvent.click(await screen.findByRole('button', { name: /Eliminar definitivamente/ }))
+    await waitFor(() =>
+      expect(screen.queryByText('Publicar la demo en GitHub Pages')).not.toBeInTheDocument(),
+    )
+
+    await userEvent.click(screen.getByRole('button', { name: /Restablecer demo/ }))
+    expect(await screen.findByText('Publicar la demo en GitHub Pages')).toBeInTheDocument()
+  })
+})
+
+describe('App outside demo mode', () => {
+  it('does not show the demo banner', async () => {
+    installFakeApi(seed())
+    renderApp()
+    await screen.findByText('Preparar demo')
+    expect(screen.queryByLabelText('Aviso de modo demo')).not.toBeInTheDocument()
   })
 })
