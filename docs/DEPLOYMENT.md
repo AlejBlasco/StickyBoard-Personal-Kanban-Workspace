@@ -10,6 +10,14 @@
 | `api` | ASP.NET Core .NET 10 alpine (`docker/api.Dockerfile`) | API REST y SQLite | solo `internal` (red sin salida al exterior); **sin puertos publicados** |
 | volumen `stickyboard-data` | — | `/data/stickyboard.db` (SQLite) | — |
 
+```mermaid
+flowchart LR
+    U["Navegador<br/>127.0.0.1:8080"] -->|"único puerto publicado<br/>solo en loopback"| W["web<br/>Nginx sin root"]
+    W -->|"/api · red internal"| A["api<br/>ASP.NET Core sin root"]
+    A --> V[("volumen stickyboard-data<br/>/data/stickyboard.db")]
+    A -.- N["sin puertos publicados<br/>sin salida a internet"]
+```
+
 ## Puesta en marcha
 
 ```bash

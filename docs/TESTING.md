@@ -81,6 +81,21 @@ No marcar una prueba como superada sin ejecutarla y registrar el resultado. Los 
 | E2E demo | Playwright contra la build estática de la demo | 7 tests: sin llamadas a `/api`, CRUD y persistencia en `localStorage`, arrastre, filtros, restablecer y axe en ambos temas | `npm run e2e:demo` |
 | Despliegue | CI (job `docker`) y `docs/DEPLOYMENT.md` | Puertos, usuario no root, `Host`/`Origin`, persistencia, CSP y Trivy | `.github/workflows/ci.yml` |
 
+Pipeline de la CI (`.github/workflows/ci.yml`) y despliegue de la demo:
+
+```mermaid
+flowchart LR
+    P["push o pull request"] --> B["backend<br/>formato · build · tests"]
+    P --> F["frontend<br/>lint · tipos · tests · build"]
+    P --> DEP["dependencias<br/>npm audit · NuGet"]
+    B --> E["e2e<br/>Playwright + API real"]
+    F --> E
+    F --> DM["demo<br/>E2E de la build estática"]
+    B --> D["docker<br/>humo · endurecimiento · Trivy"]
+    F --> D
+    M["merge a master"] --> PG["pages<br/>despliegue de la demo"]
+```
+
 El E2E también puede ejecutarse contra el stack de Docker con `E2E_BASE_URL=http://127.0.0.1:8080 npm run e2e`. **Borra las tareas existentes**: usa un proyecto Compose aparte (por ejemplo `docker compose -p sbverify`).
 
 La CI se ha ejecutado en GitHub con los 5 jobs en verde. Pendiente: revisión manual con lector de pantalla (ver `ROADMAP.md`).

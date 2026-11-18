@@ -15,6 +15,35 @@
 | `CreatedAt` | DateTimeOffset | Instante UTC |
 | `UpdatedAt` | DateTimeOffset | Instante UTC |
 
+```mermaid
+erDiagram
+    TASK {
+        guid Id PK
+        string Title "obligatorio, máx. 120"
+        string Description "opcional, máx. 2000"
+        string Status "todo | inProgress | done"
+        string Priority "low | medium | high"
+        string Color "lavender | mint | peach | sky | lemon | rose"
+        date DueDate "opcional, fecha de calendario"
+        long Position "orden en la columna, saltos de 1024"
+        datetimeoffset CreatedAt "instante UTC"
+        datetimeoffset UpdatedAt "instante UTC"
+    }
+```
+
+Estados de una tarea: cualquier columna puede moverse a cualquier otra, incluida la recuperación desde `done`.
+
+```mermaid
+stateDiagram-v2
+    [*] --> todo: crear
+    todo --> inProgress
+    inProgress --> todo
+    inProgress --> done
+    done --> inProgress: recuperar
+    todo --> done
+    done --> todo: recuperar
+```
+
 ## Reglas de dominio
 
 - Título no vacío tras normalización de espacios.
