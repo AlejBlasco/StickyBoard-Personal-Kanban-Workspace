@@ -23,7 +23,7 @@ Lee `AGENTS.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/DATA_MODEL.md`, `doc
 
 ## Plan de implementación sugerido
 
-> Las fases 1–7 están completadas; el estado detallado y lo pendiente están en `docs/ROADMAP.md`.
+> Las fases 1–7 están completadas. La dirección y lo entregado están en `docs/ROADMAP.md`; el trabajo pendiente vive en las issues y milestones del repositorio de GitHub.
 
 ### Fase 1 — Fundación
 - Crear solución .NET y aplicación React/TypeScript.

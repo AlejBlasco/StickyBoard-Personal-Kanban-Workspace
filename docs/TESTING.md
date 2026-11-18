@@ -98,4 +98,4 @@ flowchart LR
 
 El E2E también puede ejecutarse contra el stack de Docker con `E2E_BASE_URL=http://127.0.0.1:8080 npm run e2e`. **Borra las tareas existentes**: usa un proyecto Compose aparte (por ejemplo `docker compose -p sbverify`).
 
-La CI se ha ejecutado en GitHub con los 5 jobs en verde. Pendiente: revisión manual con lector de pantalla (ver `ROADMAP.md`).
+La CI se ejecuta en GitHub en cada PR: 6 jobs más el check del título (los 7 son obligatorios para fusionar). Pendiente: revisión manual con lector de pantalla ([#6](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/issues/6)).

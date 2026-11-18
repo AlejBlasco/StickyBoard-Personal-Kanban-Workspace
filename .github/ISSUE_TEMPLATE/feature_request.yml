@@ -1,0 +1,47 @@
+name: Mejora o idea
+description: Propón una funcionalidad o una mejora
+title: "[Mejora] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Antes de proponer algo, mira el [roadmap](https://github.com/AlejBlasco/StickyBoard-Personal-Kanban-Workspace/blob/master/docs/ROADMAP.md) y las issues abiertas. StickyBoard es una aplicación **local-only**; las propuestas de acceso remoto, multiusuario o sincronización se tratan como proyectos aparte.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Qué problema quieres resolver
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Propuesta
+      description: Cómo debería funcionar, con ejemplos si ayuda.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas consideradas
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área
+      options:
+        - Tablero y tareas
+        - Búsqueda y filtros
+        - Diseño y accesibilidad
+        - Backend y datos
+        - Docker y despliegue
+        - Documentación
+        - Otra
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Antes de enviar
+      options:
+        - label: Respeta las decisiones del producto (tres columnas, completadas visibles, uso local).
+          required: true
